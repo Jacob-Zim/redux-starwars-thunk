@@ -4,6 +4,12 @@ import Spinner from 'react-spinkit';
 import {searchCharacters} from '../actions';
 
 export class CharacterSearch extends React.Component {
+    onSubmit(e) {
+        e.preventDefault();
+        console.log(this.input.value);
+        this.props.dispatch(searchCharacters(this.input.value));
+    }
+
     renderResults() {
         if (this.props.loading) {
             return <Spinner spinnerName="circle" noFadeIn />;
@@ -25,7 +31,7 @@ export class CharacterSearch extends React.Component {
             <div className="character-search">
                 {/* When this form is submitted you should submit the
                     searchCharacters action */}
-                <form>
+                <form onSubmit={e => this.onSubmit(e)}>
                     <input type="search" ref={input => (this.input = input)} />
                     <button>Search</button>
                 </form>
